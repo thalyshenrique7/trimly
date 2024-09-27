@@ -6,7 +6,6 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public abstract class CutTypeRepository implements PanacheRepository<CutType> {
+public class CutTypeRepository implements PanacheRepository<CutType> {
 
-	abstract CutType findByName(String cutName);
 }
