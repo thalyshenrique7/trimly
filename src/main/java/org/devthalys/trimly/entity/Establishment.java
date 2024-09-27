@@ -1,5 +1,6 @@
 package org.devthalys.trimly.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class Establishment extends PanacheEntity {
 	}
 
 	public List<CutType> getCutTypes() {
+
+		if (cutTypes == null)
+			cutTypes = new ArrayList<CutType>();
+
 		return cutTypes;
 	}
 
@@ -54,6 +59,10 @@ public class Establishment extends PanacheEntity {
 	}
 
 	public List<Professional> getProfessionals() {
+
+		if (professionals == null)
+			professionals = new ArrayList<Professional>();
+
 		return professionals;
 	}
 
