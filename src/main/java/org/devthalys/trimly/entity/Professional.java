@@ -5,23 +5,21 @@ import java.util.Calendar;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "users")
-public class User extends PanacheEntity {
+public class Professional extends PanacheEntity {
 
-	private String username;
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
 
-	private String email;
-
-	private String password;
-
-	private String cpf;
+	@Column(name = "last_name")
+	private String lastName;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", nullable = false)
@@ -31,44 +29,24 @@ public class User extends PanacheEntity {
 	@Column(name = "updated_at", nullable = false)
 	private Calendar updatedAt;
 
-	public User() {
+	@ManyToOne
+	@JoinColumn(name = "establishment_id", referencedColumnName = "id")
+	private Establishment establishment;
 
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public User(Class<User> class1) {
-
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Calendar getCreatedAt() {
@@ -105,6 +83,14 @@ public class User extends PanacheEntity {
 
 		if (createdAt == null)
 			createdAt = updatedAt;
+	}
+
+	public Establishment getEstablishment() {
+		return establishment;
+	}
+
+	public void setEstablishment(Establishment establishment) {
+		this.establishment = establishment;
 	}
 
 }

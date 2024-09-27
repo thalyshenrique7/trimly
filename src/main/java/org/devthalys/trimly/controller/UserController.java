@@ -1,6 +1,7 @@
 package org.devthalys.trimly.controller;
 
-import org.devthalys.trimly.entity.User;
+import org.devthalys.trimly.dto.UserDTO;
+import org.devthalys.trimly.dto.UserDTODetails;
 import org.devthalys.trimly.service.UserService;
 
 import jakarta.inject.Inject;
@@ -18,13 +19,13 @@ public class UserController {
 
 	@GET
 	@Path(value = "/{id}")
-	public User findById(@PathParam("id") Long id) {
+	public UserDTODetails findById(@PathParam("id") Long id) {
 		return this.userService.getById(id);
 	}
 
 	@Transactional
 	@POST
-	public void save(User user) {
-		this.userService.create(user);
+	public void save(UserDTO userDTO) {
+		this.userService.create(userDTO);
 	}
 }

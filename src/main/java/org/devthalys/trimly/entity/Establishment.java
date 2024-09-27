@@ -1,27 +1,33 @@
 package org.devthalys.trimly.entity;
 
 import java.util.Calendar;
+import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "users")
-public class User extends PanacheEntity {
+public class Establishment extends PanacheEntity {
 
-	private String username;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private Address address;
 
-	private String email;
+	@OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<CutType> cutTypes;
 
-	private String password;
-
-	private String cpf;
+	@OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Professional> professionals;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", nullable = false)
@@ -31,44 +37,28 @@ public class User extends PanacheEntity {
 	@Column(name = "updated_at", nullable = false)
 	private Calendar updatedAt;
 
-	public User() {
-
+	public Address getAddress() {
+		return address;
 	}
 
-	public User(Class<User> class1) {
-
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	public String getUsername() {
-		return username;
+	public List<CutType> getCutTypes() {
+		return cutTypes;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCutTypes(List<CutType> cutTypes) {
+		this.cutTypes = cutTypes;
 	}
 
-	public String getEmail() {
-		return email;
+	public List<Professional> getProfessionals() {
+		return professionals;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setProfessionals(List<Professional> professionals) {
+		this.professionals = professionals;
 	}
 
 	public Calendar getCreatedAt() {

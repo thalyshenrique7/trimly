@@ -1,19 +1,10 @@
-package org.devthalys.trimly.entity;
+package org.devthalys.trimly.dto;
 
 import java.util.Calendar;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import org.devthalys.trimly.utils.PanacheDTO;
 
-@Entity
-@Table(name = "users")
-public class User extends PanacheEntity {
+public class UserDTO extends PanacheDTO {
 
 	private String username;
 
@@ -23,21 +14,9 @@ public class User extends PanacheEntity {
 
 	private String cpf;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_at", nullable = false)
 	private Calendar createdAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_at", nullable = false)
 	private Calendar updatedAt;
-
-	public User() {
-
-	}
-
-	public User(Class<User> class1) {
-
-	}
 
 	public String getUsername() {
 		return username;
@@ -76,7 +55,6 @@ public class User extends PanacheEntity {
 	}
 
 	public void setCreatedAt(Calendar createdAt) {
-
 		this.createdAt = createdAt;
 	}
 
@@ -85,26 +63,7 @@ public class User extends PanacheEntity {
 	}
 
 	public void setUpdatedAt(Calendar updatedAt) {
-
 		this.updatedAt = updatedAt;
-	}
-
-	@PrePersist
-	protected void onCreate() {
-
-		if (createdAt == null)
-			createdAt = Calendar.getInstance();
-
-		updatedAt = Calendar.getInstance();
-	}
-
-	@PreUpdate
-	protected void onUpdate() {
-
-		updatedAt = Calendar.getInstance();
-
-		if (createdAt == null)
-			createdAt = updatedAt;
 	}
 
 }
